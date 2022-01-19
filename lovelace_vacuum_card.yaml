@@ -1,0 +1,35 @@
+type: custom:vacuum-card
+entity: vacuum.kabum500
+image: /local/kabum_smart_500.png
+stats:
+  cleaning:
+    - entity_id: sensor.kabum500_area
+      unit: m²
+      subtitle: Área
+    - entity_id: sensor.kabum500_time
+      unit: minutos
+      subtitle: Tempo
+  returning:
+    - entity_id: sensor.kabum500_area
+      unit: m²
+      subtitle: Área
+    - entity_id: sensor.kabum500_time
+      unit: minutos
+      subtitle: Tempo
+  paused:
+    - entity_id: sensor.kabum500_area
+      unit: m²
+      subtitle: Área
+    - entity_id: sensor.kabum500_time
+      unit: minutos
+      subtitle: Tempo
+  docked:
+    - entity_id: sensor.kabum500_area
+      unit: m²
+      subtitle: Área
+    - entity_id: sensor.kabum500_time
+      unit: minutos
+      subtitle: Tempo
+show_toolbar: true
+show_status: true
+show_name: true
