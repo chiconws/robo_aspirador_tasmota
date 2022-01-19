@@ -35,6 +35,9 @@ homeassistant:
     kabum500: !include kabum500.yaml
 ```
 - Card
+
+![Alt](exemplo.png)
+
 Instale o [Lovelace Vacuum Card](https://github.com/denysdovhan/vacuum-card) no Home Assistant via [HACS](https://hacs.xyz/) ou manualmente.
 
 ## To Do List
