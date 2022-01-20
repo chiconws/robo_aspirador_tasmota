@@ -49,6 +49,7 @@ Instale o [Lovelace Vacuum Card](https://github.com/denysdovhan/vacuum-card) no 
 ## To Do List
 - [x] Funções básicas.
 - [ ] Botões para movimento manual.
+- [ ] Implementar erros.
 - [ ] Mapa.
 
 ## Inspiração
