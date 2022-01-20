@@ -16,17 +16,17 @@ Os passos aqui descritos funcionam para os seguintes aspiradores:
 
 ## Tasmota
 - Template
-```haskel
+```haskell
 {"NAME":"KaBuM! Smart 500","GPIO":[1,1,1,1,1,1,0,0,1,1,1,1,1,0],"FLAG":0,"BASE":54}
 ```
 
 - Selecionando o módulo TuyaMCU e ativando o envio de mensagens TuyaReceived via MQTT
-```haskel
+```haskell
 Backlog Module 54; SetOption66 1
 ```
 
 - Regra para responder o TuyaMCU quando ele pedir o status do módulo Wi-Fi
-```haskel
+```haskell
 Backlog Rule1 1; Rule1 on TuyaReceived#Cmnd=43 do SerialSend5 55aa002b0001042f endon
 ```
 
