@@ -1,5 +1,5 @@
 
-# Transplante do Módulo Wi-Fi Tuya do Robô Aspirador KaBuM! Smart 500
+# Transplante do Módulo Wi-Fi Tuya do Robô Aspirador KaBuM! Smart 500 para Módulo Tasmota
 
 **Em desenvolvimento.**
 > There is no cloud, it's just someone else's computer.
