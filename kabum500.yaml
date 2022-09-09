@@ -36,176 +36,175 @@ vacuum:
         attribute_templates:
           status: "{{ states('sensor.kabum500_state_ptbr') }}"
 
-sensor:
-  - platform: mqtt
-    name: kabum500_state
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType4Id28 is defined %}
-        {% if value_json.TuyaReceived['28'].DpIdData == "00" %} idle
-        {% elif value_json.TuyaReceived['28'].DpIdData == "01" %} cleaning
-        {% elif value_json.TuyaReceived['28'].DpIdData == "02" %} error
-        {% elif value_json.TuyaReceived['28'].DpIdData == "03" %} idle
-        {% elif value_json.TuyaReceived['28'].DpIdData == "04" %} idle
-        {% elif value_json.TuyaReceived['28'].DpIdData == "05" %} docked
-        {% elif value_json.TuyaReceived['28'].DpIdData == "06" %} docked
-        {% elif value_json.TuyaReceived['28'].DpIdData == "07" %} paused
-        {% elif value_json.TuyaReceived['28'].DpIdData == "08" %} cleaning
-        {% elif value_json.TuyaReceived['28'].DpIdData == "09" %} cleaning
-        {% elif value_json.TuyaReceived['28'].DpIdData == "0A" %} returning
-        {% endif %}
-      {% else %}
-        {{ states('sensor.kabum500_state') }}
-      {% endif %}
-
-  - platform: mqtt
-    name: kabum500_state_ptbr
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType4Id28 is defined %}
-        {% if value_json.TuyaReceived['28'].DpIdData == "00" %} Em Espera
-        {% elif value_json.TuyaReceived['28'].DpIdData == "01" %} Trabalhando
-        {% elif value_json.TuyaReceived['28'].DpIdData == "02" %} Erro
-        {% elif value_json.TuyaReceived['28'].DpIdData == "03" %} Dormindo
-        {% elif value_json.TuyaReceived['28'].DpIdData == "04" %} Trabalho Finalizado
-        {% elif value_json.TuyaReceived['28'].DpIdData == "05" %} Recarregando
-        {% elif value_json.TuyaReceived['28'].DpIdData == "06" %} Recarga Completa
-        {% elif value_json.TuyaReceived['28'].DpIdData == "07" %} Pausado
-        {% elif value_json.TuyaReceived['28'].DpIdData == "08" %} Aspirando
-        {% elif value_json.TuyaReceived['28'].DpIdData == "09" %} Passando Pano
-        {% elif value_json.TuyaReceived['28'].DpIdData == "0A" %} Retornando
-        {% endif %}
-      {% else %}
-        {{ states('sensor.kabum500_state_ptbr') }}
-      {% endif %}
-
-  - platform: mqtt
-    name: kabum500_suction_speed
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType4Id30 is defined %}
-        {% if value_json.TuyaReceived['30'].DpIdData == "00" %} Mínimo
-        {% elif value_json.TuyaReceived['30'].DpIdData == "01" %} Médio
-        {% elif value_json.TuyaReceived['30'].DpIdData == "02" %} Máximo
-        {% endif %}
-      {% else %}
-        {{ states('sensor.kabum500_suction_speed') }}
-      {% endif %}
-
-  - platform: mqtt
-    name: kabum500_battery
-    state_topic: tele/kabum500/RESULT
-    device_class: battery
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType2Id14 is defined %}
-        {{ value_json['TuyaReceived'].DpType2Id14 }}
-      {% else %}
-        {{ states('sensor.kabum500_battery') }}
-      {% endif %}
-
-  - platform: mqtt
-    name: kabum500_area
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType2Id32 is defined %}
-        {{ value_json['TuyaReceived'].DpType2Id32 }}
-      {% else %}
-        {{ states('sensor.kabum500_area') }}
-      {% endif %}
-
-  - platform: mqtt
-    name: kabum500_time
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType2Id33 is defined %}
-        {{ value_json['TuyaReceived'].DpType2Id33 }}
-      {% else %}
-        {{ states('sensor.kabum500_time') }}
-      {% endif %}
-    
-  - platform: mqtt
-    name: kabum500_error
-    state_topic: tele/kabum500/RESULT
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType5Id11 is defined %}
-        {% set value = value_json.TuyaReceived['11'].DpIdData %}
-        {% if value == "00" %} Sem erro
-        {% elif value == "04" %} ??? 04
-        {% elif value == "10" %} Robô fora do chão
-        {% elif value == "20" %} ??? 20
-        {% elif value == "8000" %} Mova o robô para uma área aberta
-        {% elif value == "0800" %} Motor enroscado
+mqtt:
+  sensor:
+    - unique_id: kabum500_state
+      name: "KaBuM500 State"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType4Id28 is defined %}
+          {% if value_json.TuyaReceived['28'].DpIdData == "00" %} idle
+          {% elif value_json.TuyaReceived['28'].DpIdData == "01" %} cleaning
+          {% elif value_json.TuyaReceived['28'].DpIdData == "02" %} error
+          {% elif value_json.TuyaReceived['28'].DpIdData == "03" %} idle
+          {% elif value_json.TuyaReceived['28'].DpIdData == "04" %} idle
+          {% elif value_json.TuyaReceived['28'].DpIdData == "05" %} docked
+          {% elif value_json.TuyaReceived['28'].DpIdData == "06" %} docked
+          {% elif value_json.TuyaReceived['28'].DpIdData == "07" %} paused
+          {% elif value_json.TuyaReceived['28'].DpIdData == "08" %} cleaning
+          {% elif value_json.TuyaReceived['28'].DpIdData == "09" %} cleaning
+          {% elif value_json.TuyaReceived['28'].DpIdData == "0A" %} returning
+          {% endif %}
         {% else %}
-          {% set value = "Erro desconhecido: " ~ value %}
-          {{ value }}
+          {{ states('sensor.kabum500_state') }}
         {% endif %}
-      {% else %}
-        {{ states('sensor.kabum500_error') }}
-      {% endif %}
 
-switch:
-  - platform: mqtt
-    unique_id: kabum500_sleep_wake
-    name: "KaBuM500 Sleep"
-    icon: mdi:robot-vacuum
-    state_topic: tele/kabum500/RESULT
-    command_topic: cmnd/kabum500/TuyaSend1
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType1Id1 is defined %}
-        {% if value_json['TuyaReceived'].DpType1Id1 == 0 %} OFF
-        {% else %} ON
+    - unique_id: kabum500_state_ptbr
+      name: "KaBuM500 State pt-br"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType4Id28 is defined %}
+          {% if value_json.TuyaReceived['28'].DpIdData == "00" %} Em Espera
+          {% elif value_json.TuyaReceived['28'].DpIdData == "01" %} Trabalhando
+          {% elif value_json.TuyaReceived['28'].DpIdData == "02" %} Erro
+          {% elif value_json.TuyaReceived['28'].DpIdData == "03" %} Dormindo
+          {% elif value_json.TuyaReceived['28'].DpIdData == "04" %} Trabalho Finalizado
+          {% elif value_json.TuyaReceived['28'].DpIdData == "05" %} Recarregando
+          {% elif value_json.TuyaReceived['28'].DpIdData == "06" %} Recarga Completa
+          {% elif value_json.TuyaReceived['28'].DpIdData == "07" %} Pausado
+          {% elif value_json.TuyaReceived['28'].DpIdData == "08" %} Aspirando
+          {% elif value_json.TuyaReceived['28'].DpIdData == "09" %} Passando Pano
+          {% elif value_json.TuyaReceived['28'].DpIdData == "0A" %} Retornando
+          {% endif %}
+        {% else %}
+          {{ states('sensor.kabum500_state_ptbr') }}
         {% endif %}
-      {% else %}
-        {{ states('switch.kabum500_sleep_wake') }}
-      {% endif %}
-    payload_on: "1,1"
-    payload_off: "1,0"
-    state_on: "ON"
-    state_off: "OFF"
-    qos: 1
-    retain: false
 
-  - platform: mqtt
-    unique_id: kabum500_power_go
-    name: "KaBuM500 Power go"
-    icon: mdi:robot-vacuum
-    state_topic: tele/kabum500/RESULT
-    command_topic: cmnd/KaBuM500/TuyaSend1
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType1Id25 is defined %}
-        {% if value_json['TuyaReceived'].DpType1Id25 == 0 %} OFF
-        {% else %} ON
+    - unique_id: kabum500_suction_speed
+      name: "KaBuM500 Suction Speed"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType4Id30 is defined %}
+          {% if value_json.TuyaReceived['30'].DpIdData == "00" %} Mínimo
+          {% elif value_json.TuyaReceived['30'].DpIdData == "01" %} Médio
+          {% elif value_json.TuyaReceived['30'].DpIdData == "02" %} Máximo
+          {% endif %}
+        {% else %}
+          {{ states('sensor.kabum500_suction_speed') }}
         {% endif %}
-      {% else %}
-        {{ states('switch.kabum500_power_go') }}
-      {% endif %}
-    payload_on: "25,1"
-    payload_off: "25,0"
-    state_on: "ON"   # Start
-    state_off: "OFF" # Pause
-    qos: 1
-    retain: false
 
-  - platform: mqtt
-    unique_id: kabum500_mute
-    name: "KaBuM500 Mute"
-    icon: mdi:robot-vacuum
-    state_topic: tele/kabum500/RESULT
-    command_topic: cmnd/KaBuM500/TuyaSend1
-    value_template: >
-      {% if value_json['TuyaReceived'].DpType1Id31 is defined %}
-        {% if value_json['TuyaReceived'].DpType1Id31 == 0 %} OFF
-        {% else %} ON
+    - unique_id: kabum500_battery
+      name: "KaBuM500 Battery"
+      state_topic: tele/kabum500/RESULT
+      device_class: battery
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType2Id14 is defined %}
+          {{ value_json['TuyaReceived'].DpType2Id14 }}
+        {% else %}
+          {{ states('sensor.kabum500_battery') }}
         {% endif %}
-      {% else %}
-        {{ states('switch.kabum500_mute') }}
-      {% endif %}
-    payload_on: "25,1"
-    payload_off: "25,0"
-    state_on: "ON"   # Start
-    state_off: "OFF" # Pause
-    qos: 1
-    retain: false
+
+    - unique_id: kabum500_area
+      name: "KaBuM500 Area"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType2Id32 is defined %}
+          {{ value_json['TuyaReceived'].DpType2Id32 }}
+        {% else %}
+          {{ states('sensor.kabum500_area') }}
+        {% endif %}
+
+    - unique_id: kabum500_time
+      name: "KaBuM500 Time"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType2Id33 is defined %}
+          {{ value_json['TuyaReceived'].DpType2Id33 }}
+        {% else %}
+          {{ states('sensor.kabum500_time') }}
+        {% endif %}
+      
+    - unique_id: kabum500_error
+      name: "KaBuM500 Error"
+      state_topic: tele/kabum500/RESULT
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType5Id11 is defined %}
+          {% set value = value_json.TuyaReceived['11'].DpIdData %}
+          {% if value == "00" %} Sem erro
+          {% elif value == "04" %} ??? 04
+          {% elif value == "10" %} Robô fora do chão
+          {% elif value == "20" %} ??? 20
+          {% elif value == "0200" %} ??? 0200
+          {% elif value == "8000" %} Mova o robô para uma área aberta
+          {% elif value == "0800" %} Motor enroscado
+          {% else %}
+            {% set value = "Erro desconhecido: " ~ value %}
+            {{ value }}
+          {% endif %}
+        {% else %}
+          Sem erro
+        {% endif %}
+
+  switch:
+    - unique_id: kabum500_sleep_wake
+      name: "KaBuM500 Sleep"
+      icon: mdi:robot-vacuum
+      state_topic: tele/kabum500/RESULT
+      command_topic: cmnd/kabum500/TuyaSend1
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType1Id1 is defined %}
+          {% if value_json['TuyaReceived'].DpType1Id1 == 0 %} OFF
+          {% else %} ON
+          {% endif %}
+        {% else %}
+          {{ states('switch.kabum500_sleep_wake') }}
+        {% endif %}
+      payload_on: "1,1"
+      payload_off: "1,0"
+      state_on: "ON"
+      state_off: "OFF"
+      qos: 1
+      retain: false
+
+    - unique_id: kabum500_power_go
+      name: "KaBuM500 Power go"
+      icon: mdi:robot-vacuum
+      state_topic: tele/kabum500/RESULT
+      command_topic: cmnd/KaBuM500/TuyaSend1
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType1Id25 is defined %}
+          {% if value_json['TuyaReceived'].DpType1Id25 == 0 %} OFF
+          {% else %} ON
+          {% endif %}
+        {% else %}
+          {{ states('switch.kabum500_power_go') }}
+        {% endif %}
+      payload_on: "25,1"
+      payload_off: "25,0"
+      state_on: "ON"   # Start
+      state_off: "OFF" # Pause
+      qos: 1
+      retain: false
+
+    - unique_id: kabum500_mute
+      name: "KaBuM500 Mute"
+      icon: mdi:robot-vacuum
+      state_topic: tele/kabum500/RESULT
+      command_topic: cmnd/KaBuM500/TuyaSend1
+      value_template: >
+        {% if value_json['TuyaReceived'].DpType1Id31 is defined %}
+          {% if value_json['TuyaReceived'].DpType1Id31 == 0 %} OFF
+          {% else %} ON
+          {% endif %}
+        {% else %}
+          {{ states('switch.kabum500_mute') }}
+        {% endif %}
+      payload_on: "25,1"
+      payload_off: "25,0"
+      state_on: "ON"   # Start
+      state_off: "OFF" # Pause
+      qos: 1
+      retain: false
 
 input_select:
   kabum500_mode:
@@ -258,7 +257,7 @@ script:
             {% elif is_state("input_select.kabum500_mode", "Single") %} 27,3
             {% elif is_state("input_select.kabum500_mode", "Cantos") %} 27,4
             {% elif is_state("input_select.kabum500_mode", "Retornar") %} 27,5
-            {%- endif -%}
+            {% endif %}
 #Suction Power
   kabum500_send_suction:
     sequence:
@@ -269,7 +268,7 @@ script:
             {% if is_state("input_select.kabum500_suction", "Mínimo") %} 30,0
             {% elif is_state("input_select.kabum500_suction", "Médio") %} 30,1
             {% elif is_state("input_select.kabum500_suction", "Máximo") %} 30,2
-            {%- endif -%}
+            {% endif %}
 #Front
   kabum500_dpid26_direction_front:
     sequence:
