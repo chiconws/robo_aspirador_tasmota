@@ -34,7 +34,7 @@ vacuum:
           - "Médio"
           - "Máximo"
         attribute_templates:
-          status: "{{ states('sensor.kabum500_state_pt_br') }}"
+          status: "{{ states('sensor.kabum500_state_ptbr') }}"
 
 mqtt:
   sensor:
