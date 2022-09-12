@@ -79,7 +79,7 @@ mqtt:
           {% elif value == "0A" %} Retornando
           {% endif %}
         {% else %}
-          {{ states('sensor.kabum500_state_pt_br') }}
+          {{ states('sensor.kabum500_state_ptbr') }}
         {% endif %}
 
     - unique_id: kabum500_suction_speed
