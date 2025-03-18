@@ -9,6 +9,8 @@ stats:
     - entity_id: sensor.kabum500_time
       unit: minutos
       subtitle: Tempo
+    - entity_id: input_select.kabum500_user_mode
+      subtitle: Modo
   returning:
     - entity_id: sensor.kabum500_area
       unit: m²
