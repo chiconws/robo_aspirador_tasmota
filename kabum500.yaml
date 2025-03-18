@@ -311,6 +311,12 @@ script:
           topic: cmnd/kabum500/TuyaSend1
           payload: 29,1
 
+  kabum500_mute:
+    sequence:
+      - service: switch.toggle
+        target:
+          entity_id: switch.kabum500_mute
+
 automation:
   - alias: "KaBuM500 Send Working Mode"
     trigger:
@@ -342,3 +348,14 @@ automation:
             {% elif is_state("input_select.kabum500_suction", "Médio") %} 30,1
             {% elif is_state("input_select.kabum500_suction", "Máximo") %} 30,2
             {% endif %}
+
+  - alias: "Translate User Mode to Working Mode"
+    trigger:
+      - platform: state
+        entity_id: input_select.kabum500_user_mode
+    action:
+      - service: input_select.select_option
+        target:
+          entity_id: input_select.kabum500_mode
+        data:
+          option: "{{ states('input_select.kabum500_user_mode') }}"
