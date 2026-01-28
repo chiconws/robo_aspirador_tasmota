@@ -1,40 +1,40 @@
-vacuum:
-  - platform: template
-    vacuums:
-      kabum500:
-        friendly_name: KaBuM! Smart 500
-        unique_id: kabum500
-        value_template: "{{ states('sensor.kabum500_state') }}"
-        battery_level_template: "{{ states('sensor.kabum500_battery') }}"
-        fan_speed_template: "{{ states('input_select.kabum500_suction') }}"
-        start:
-          service: script.kabum500_start
-        pause:
-          service: switch.turn_off
-          entity_id: switch.kabum500_power_go
-        stop:
-          service: input_select.select_option
-          data:
-            entity_id: input_select.kabum500_mode
-            option: "Em Espera"
-        return_to_base:
-          service: input_select.select_option
-          data:
-            entity_id: input_select.kabum500_mode
-            option: "Retornar"
-        locate:
-          service: script.kabum500_locate
-        set_fan_speed:
-          service: input_select.select_option
-          data_template:
-            entity_id: input_select.kabum500_suction
-            option: "{{ fan_speed }}"
-        fan_speeds:
-          - "Mínimo"
-          - "Médio"
-          - "Máximo"
-        attribute_templates:
-          status: "{{ states('sensor.kabum500_state_ptbr') }}"
+template:
+- vacuum:
+  - unique_id: kabum500
+    start:
+    - action: script.kabum500_start
+    pause:
+    - entity_id:
+      - switch.kabum500_power_go
+      action: switch.turn_off
+    stop:
+    - data:
+        entity_id: input_select.kabum500_mode
+        option: Em Espera
+      action: input_select.select_option
+    return_to_base:
+    - data:
+        entity_id: input_select.kabum500_mode
+        option: Retornar
+      action: input_select.select_option
+    locate:
+    - action: script.kabum500_locate
+    set_fan_speed:
+    - data_template:
+        entity_id: input_select.kabum500_suction
+        option: '{{ fan_speed }}'
+      action: input_select.select_option
+    fan_speeds:
+    - Mínimo
+    - Médio
+    - Máximo
+    default_entity_id: vacuum.kabum500
+    attributes:
+      status: '{{ states(''sensor.kabum500_state_ptbr'') }}'
+    name: KaBuM! Smart 500
+    battery_level: '{{ states(''sensor.kabum500_battery'') }}'
+    fan_speed: '{{ states(''input_select.kabum500_suction'') }}'
+    state: '{{ states(''sensor.kabum500_state'') }}'
 
 mqtt:
   sensor:
