@@ -1,6 +1,6 @@
 type: custom:vacuum-card
 entity: vacuum.kabum500
-image: /local/kabum_smart_500.png
+image: /local/kabum500.png
 stats:
   cleaning:
     - entity_id: sensor.kabum500_area

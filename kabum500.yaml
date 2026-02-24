@@ -103,9 +103,11 @@ mqtt:
       unit_of_measurement: '%'
       value_template: >
         {% if value_json['TuyaReceived'].DpType2Id14 is defined %}
-          {{ int(value_json['TuyaReceived'].DpType2Id14) }}
+          {{ value_json['TuyaReceived'].DpType2Id14 | int(0) }}
+        {% elif is_number(states('sensor.kabum500_battery')) %}
+          {{ states('sensor.kabum500_battery') | int(0) }}
         {% else %}
-          {{ states('sensor.kabum500_battery') }}
+          0
         {% endif %}
 
     - unique_id: kabum500_area
@@ -113,9 +115,11 @@ mqtt:
       state_topic: tele/kabum500/RESULT
       value_template: >
         {% if value_json['TuyaReceived'].DpType2Id32 is defined %}
-          {{ int(value_json['TuyaReceived'].DpType2Id32) }}
+          {{ value_json['TuyaReceived'].DpType2Id32 | int(0) }}
+        {% elif is_number(states('sensor.kabum500_area')) %}
+          {{ states('sensor.kabum500_area') | int(0) }}
         {% else %}
-          {{ states('sensor.kabum500_area') }}
+          0
         {% endif %}
 
     - unique_id: kabum500_time
@@ -123,9 +127,11 @@ mqtt:
       state_topic: tele/kabum500/RESULT
       value_template: >
         {% if value_json['TuyaReceived'].DpType2Id33 is defined %}
-          {{ int(value_json['TuyaReceived'].DpType2Id33) }}
+          {{ value_json['TuyaReceived'].DpType2Id33 | int(0) }}
+        {% elif is_number(states('sensor.kabum500_time')) %}
+          {{ states('sensor.kabum500_time') | int(0) }}
         {% else %}
-          {{ states('sensor.kabum500_time') }}
+          0
         {% endif %}
 
     - unique_id: kabum500_error
@@ -208,10 +214,10 @@ mqtt:
         {% else %}
           {{ states('switch.kabum500_mute') }}
         {% endif %}
-      payload_on: "25,1"
-      payload_off: "25,0"
-      state_on: "ON" # Start
-      state_off: "OFF" # Pause
+      payload_on: "31,1"
+      payload_off: "31,0"
+      state_on: "ON"
+      state_off: "OFF"
       qos: 1
       retain: false
 
