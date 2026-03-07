@@ -146,7 +146,7 @@ mqtt:
           {% elif value == "08" %} Robô fora do chão
           {% elif value == "10" %} Robô fora do chão
           {% elif value == "20" %} Aspirador entupido
-          {% elif value == "40" %} ??? 40
+          {% elif value == "40" %} Bumper emperrado
           {% elif value == "0200" %} Coletor de poeira não instalado
           {% elif value == "8000" %} Mova o robô para uma área aberta
           {% elif value == "0800" %} Motor enroscado
